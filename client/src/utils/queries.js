@@ -31,6 +31,7 @@ export const QUERY_ALL_PRODUCTS = gql`
       price
       quantity
       category {
+        _id
         name
       }
     }

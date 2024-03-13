@@ -1,4 +1,5 @@
 import ReactDOM from "react-dom/client";
+import React, { Suspense, lazy } from 'react'; 
 import "./index.css";
 import {
   createBrowserRouter,
@@ -6,17 +7,18 @@ import {
   Navigate,
 } from "react-router-dom";
 
-import App from "./App.jsx";
-import Home from "./pages/Home.jsx";
-import Detail from "./pages/Detail";
-import NoMatch from "./pages/NoMatch";
-import Login from "./pages/Login.jsx";
-import Signup from "./pages/Signup";
-import Success from "./pages/Success";
-import OrderHistory from "./pages/OrderHistory";
-import Profile from "./pages/Profile";
-import Dashboard from "./pages/Dashboard";
-import CartPage from './pages/CartPage';
+// Lazy load components
+const App = lazy(() => import("./App.jsx"));
+const Home = lazy(() => import("./pages/Home.jsx"));
+const Detail = lazy(() => import("./pages/Detail"));
+const NoMatch = lazy(() => import("./pages/NoMatch"));
+const Login = lazy(() => import("./pages/Login.jsx"));
+const Signup = lazy(() => import("./pages/Signup"));
+const Success = lazy(() => import("./pages/Success"));
+const OrderHistory = lazy(() => import("./pages/OrderHistory"));
+const Profile = lazy(() => import("./pages/Profile"));
+const Dashboard = lazy(() => import("./pages/Dashboard"));
+const CartPage = lazy(() => import('./pages/CartPage'));
 
 const router = createBrowserRouter([
   {
@@ -78,13 +80,12 @@ const router = createBrowserRouter([
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")).render(
-  <RouterProvider router={router} />
+  <Suspense fallback={<div>Loading...</div>}> {/* Add a fallback */}
+    <RouterProvider router={router} />
+  </Suspense>
 );
 
-// Placeholder for authentication check
-// Implement this function based on your authentication logic
 function isAuthenticated() {
-  // This should be replaced with actual logic to check if the user is authenticated
   const token = localStorage.getItem("id_token");
   return !!token;
 }

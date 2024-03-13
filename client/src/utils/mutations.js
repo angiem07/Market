@@ -58,3 +58,18 @@ mutation getCheckout($products: [ID]!) {
   }
 `;
 
+export const ADD_PRODUCT_MUTATION = gql`
+  mutation AddProduct($name: String!, $image: String, $price: Float!, $quantity: Int!, $category: ID!) {
+    addProduct(name: $name, image: $image, price: $price, quantity: $quantity, category: $category) {
+      _id
+      name
+      price
+      quantity
+      category {
+        _id
+        name
+      }
+    }
+  }
+`;
+

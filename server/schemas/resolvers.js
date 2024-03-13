@@ -1,6 +1,6 @@
 const { User, Product, Category, Order } = require('../models');
 const { signToken, AuthenticationError } = require('../utils/auth');
-const stripe = require('stripe')('sk_test_4eC39HqLyjWDarjtT1zdp7dc');
+const stripe = require('stripe')('sk_test_51OswYK07VB9gYcRnIPLLvKIyP36xzKpm3iCzS2ydvHVJRT0x8Fj6gMavRQRA5cQFvAOUQWRf0Fk6USbHj7Vm7vW900hTmNa3Zx');
 
 const resolvers = {
   Query: {
@@ -91,6 +91,15 @@ const resolvers = {
     }
   },
   Mutation: {
+
+    addProduct: async (parent, args, context) => {
+      
+      if (!context.user) throw new AuthenticationError("You must be logged in");
+  
+      const newProduct = await Product.create(args);
+      return newProduct;
+    },
+    
     addUser: async (parent, args) => {
       const user = await User.create(args);
       const token = signToken(user);

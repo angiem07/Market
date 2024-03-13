@@ -35,7 +35,7 @@ const UploadInventoryForm = ({ onClose }) => {
         autoFocus
         onChange={handleChange}
       />
-      <TextField
+      {/* <TextField
         margin="normal"
         required
         fullWidth
@@ -45,7 +45,7 @@ const UploadInventoryForm = ({ onClose }) => {
         id="description"
         autoComplete="description"
         onChange={handleChange}
-      />
+      /> */}
       <TextField
         margin="normal"
         required
