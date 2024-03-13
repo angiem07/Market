@@ -12,13 +12,11 @@ function Nav() {
               Order History
             </Link>
           </li>
-          
-          {/* <li className="mx-1">
+          <li className="mx-1">
             <Link to="/Profile">
               View Profile
             </Link>
-          </li> */}
-
+          </li>
           <li className="mx-1">
             <Link to="/Dashboard">
               New Inventory

@@ -1,12 +1,13 @@
 import { useState } from 'react';
 import { useMutation } from '@apollo/client';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { LOGIN } from '../utils/mutations';
 import Auth from '../utils/auth';
 
 function Login(props) {
+  const navigate = useNavigate();
   const [formState, setFormState] = useState({ email: '', password: '' });
-  const [login, { error }] = useMutation(LOGIN);
+  const [login, { data, loading, error }] = useMutation(LOGIN);
 
   const handleFormSubmit = async (event) => {
     event.preventDefault();
@@ -15,7 +16,10 @@ function Login(props) {
         variables: { email: formState.email, password: formState.password },
       });
       const token = mutationResponse.data.login.token;
+      localStorage.setItem('token', token);
       Auth.login(token);
+      navigate('/home');
+  
     } catch (e) {
       console.log(e);
     }
@@ -31,14 +35,14 @@ function Login(props) {
 
   return (
     <div className="container my-1">
-      <Link to="/signup">← Go to Signup</Link>
+      
 
       <h2>Login</h2>
       <form onSubmit={handleFormSubmit}>
         <div className="flex-row space-between my-2">
-          <label htmlFor="email">Email address:</label>
+          <label htmlFor="email">Email:</label>
           <input
-            placeholder="youremail@test.com"
+            placeholder="Email"
             name="email"
             type="email"
             id="email"
@@ -63,6 +67,7 @@ function Login(props) {
         <div className="flex-row flex-end">
           <button type="submit">Submit</button>
         </div>
+        <Link to="/signup">Don't have an account? Signup here</Link>
       </form>
     </div>
   );

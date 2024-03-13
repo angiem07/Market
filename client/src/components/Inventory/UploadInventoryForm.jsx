@@ -5,7 +5,7 @@ import { Button, TextField, Box } from '@mui/material';
 const UploadInventoryForm = ({ onClose }) => {
   const [inventoryData, setInventoryData] = useState({
     name: '',
-    description: '',
+    // description: '',
     price: 0,
     quantity: 0,
   });
